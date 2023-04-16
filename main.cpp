@@ -42,11 +42,10 @@ int main() {
     GLFWwindow* window = glInit();
     if (window == NULL) return -1;
 
-
-    Shader shader("resources/text.vs", "resources/text.fs");
-    loadShader(shader, SCR_WIDTH, SCR_HEIGHT);
-    int err = loadFont("resources/fonts/Antonio-Bold.ttf");
+    int err = LoadFont("resources/fonts/Antonio-Bold.ttf");
     if (err != 0) return -1;
+    Shader shader("resources/text.vs", "resources/text.fs");
+    LoadShader(shader, SCR_WIDTH, SCR_HEIGHT);
 
     while (!glfwWindowShouldClose(window)) {
         processInput(window);

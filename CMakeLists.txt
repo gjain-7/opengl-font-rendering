@@ -15,6 +15,8 @@ add_executable(font main.cpp text_renderer.cpp)
 target_include_directories(font PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_include_directories(font PUBLIC ${PROJECT_BINARY_DIR}/include)
 target_link_libraries(font PUBLIC glad freetype glfw OpenGL)
+target_compile_definitions(font PRIVATE GLFW_INCLUDE_NONE)
+
 
 add_custom_command(TARGET font POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory

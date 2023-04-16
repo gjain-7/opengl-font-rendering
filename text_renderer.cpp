@@ -33,6 +33,11 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
 // -------------------
 void RenderText(Shader &shader, std::string text, float x, float y, float scale,
                 glm::vec3 color) {
+    // OpenGL state
+    // ------------
+    glEnable(GL_CULL_FACE);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     // activate corresponding render state
     shader.use();
     glUniform3f(glGetUniformLocation(shader.ID, "textColor"), color.x, color.y,
@@ -78,13 +83,7 @@ void RenderText(Shader &shader, std::string text, float x, float y, float scale,
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void loadShader(Shader &shader, int SCR_WIDTH, int SCR_HEIGHT) {
-    // OpenGL state
-    // ------------
-    glEnable(GL_CULL_FACE);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+void LoadShader(Shader &shader, int SCR_WIDTH, int SCR_HEIGHT) {
     // compile and setup the shader
     // ----------------------------
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(SCR_WIDTH), 0.0f,
@@ -94,7 +93,7 @@ void loadShader(Shader &shader, int SCR_WIDTH, int SCR_HEIGHT) {
                        GL_FALSE, glm::value_ptr(projection));
 }
 
-int loadFont(const char *fontPath) {
+int LoadFont(const char *fontPath) {
     // FreeType
     // --------
     FT_Library ft;
